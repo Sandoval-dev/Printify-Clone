@@ -4,14 +4,14 @@ import Image from 'next/image'
 import { routes } from '@/constants'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import MobileMenu from './MobileMenu'
+import UserMenu from './UserMenu'
 
 const Header = () => {
     return (
         <div className='h-16 shadow-md bg-white w-full fixed z-50'>
             <div className='container mx-auto flex flex-row items-center justify-between p-3'>
-                <div className='lg:hidden flex items-center'>
-                    <MenuIcon />
-                </div>
+                <MobileMenu />
                 <div className='flex items-center mr-auto'>
                     <Link href="/">
                         <Image alt='logo' src='/logo.png'
@@ -27,15 +27,7 @@ const Header = () => {
 
                     }
                 </nav>
-                <div className='space-x-4'>
-                    <Link href="/login">
-                        <Button variant='outline'>Login</Button>
-                    </Link>
-                    <Link href="/">
-                        <Button variant='success'>Sign up</Button>
-                    </Link>
-
-                </div>
+                <UserMenu />
             </div>
         </div>
     )

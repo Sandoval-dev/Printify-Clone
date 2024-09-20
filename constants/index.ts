@@ -21,3 +21,24 @@ export const routes: RouteProps=[
     },
 
 ]
+
+export const services:ServiceProps=[
+    {
+        id:1,
+        image:"/services/1.png",
+        title:"Higher Profits",
+        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in arcu a neque fermentum tempor."
+    },
+    {
+        id:2,
+        image:"/services/2.png",
+        title:"Customized Designs",
+        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in arcu a neque fermentum tempor."
+    },
+    {
+        id:3,
+        image:"/services/3.png",
+        title:"Best Selection",
+        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in arcu a neque fermentum tempor."
+    }
+]

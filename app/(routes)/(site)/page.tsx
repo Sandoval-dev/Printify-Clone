@@ -2,6 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
+import Hero from "../_components/Home/Hero";
+import Services from "../_components/Home/Services";
 
 export default function Home() {
 
@@ -9,13 +11,8 @@ export default function Home() {
 
   return (
     <>
-      <Button variant='success' onClick={() => {
-        toast({
-          title: "Scheduled: Catch up",
-          variant: 'success',
-          description: "Friday, February 10, 2023 at 5:57 PM",
-        })
-      }}>Tıkla bana</Button>
+     <Hero/>
+     <Services/>
     </>
   );
 }

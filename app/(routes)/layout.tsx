@@ -10,7 +10,7 @@ const RoutesLayout = ({ children }: RoutesLayoutProps) => {
     return (
         <div>
             <Header/>
-            <div className='min-h-screen'>
+            <div className='min-h-screen pt-16'>
                 {children}
             </div>
 
