@@ -72,6 +72,8 @@ model Configuration {
   type ProductType?
 
   imageUrl        String
+  width           Int
+  height          Int
   casecolor       CaseColor?
   casemodel       PhoneModel?
   casematerial    CaseMaterial?
