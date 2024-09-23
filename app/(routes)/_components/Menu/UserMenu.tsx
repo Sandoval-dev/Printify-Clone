@@ -1,16 +1,39 @@
 import { Button } from '@/components/ui/button'
+import { UserButton } from '@clerk/nextjs'
+import { currentUser } from '@clerk/nextjs/server'
 import Link from 'next/link'
 import React from 'react'
 
-const UserMenu = () => {
+const UserMenu = async () => {
+    const user = await currentUser()
+
     return (
-        <div className='space-x-4'>
-            <Link href="/login">
-                <Button variant='outline'>Login</Button>
-            </Link>
-            <Link href="/">
-                <Button variant='success'>Sign up</Button>
-            </Link>
+        <div>
+            {
+                user && (
+                    <>
+                        <div className='flex flex-row items-center justify-center gap-3'>
+                            <Link href="/dashboard">
+                                <Button variant='success'>Dashboard</Button>
+                            </Link>
+                            <UserButton />
+                        </div>
+
+                    </>
+                )
+            }
+            {!user && (
+                <div className='space-x-4'>
+                    <Link href="/sign-in">
+                        <Button variant='outline'>Login</Button>
+                    </Link>
+                    <Link href="/sign-up">
+                        <Button variant='success'>Sign up</Button>
+                    </Link>
+                </div>
+            )
+            }
+
         </div>
     )
 }
