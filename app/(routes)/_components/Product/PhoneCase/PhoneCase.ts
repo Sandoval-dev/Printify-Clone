@@ -11,20 +11,20 @@ export const PHONE_PRICES = {
 
 export const PHONE_BASE_PRICE = 12_00
 
-type Color = { label: string, value: string, tw: string }
+type Color = { label: string, value: string, tw: string; twborder:string}
 
 export const COLORS: Color[] = [
     {
-        label: 'Black', value: 'black', tw: 'zinc-900'
+        label: 'Black', value: 'black', tw: 'bg-zinc-900', twborder: 'border-zinc-900'
     },
     {
-        label: 'Blue', value: 'blue', tw: 'blue-950'
+        label: 'Blue', value: 'blue', tw: 'bg-blue-950', twborder: 'border-blue-950'
     },
     {
-        label: 'Rose', value: 'rose', tw: 'rose-950'
+        label: 'Rose', value: 'rose', tw: 'bg-rose-950', twborder: 'border-rose-950'
     },
     {
-        label: 'Yellow', value: 'yellow', tw: 'yellow-900'
+        label: 'Yellow', value: 'yellow', tw: 'bg-yellow-300', twborder:'border-yellow-300'
     }
 ]
 
