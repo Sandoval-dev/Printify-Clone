@@ -14,12 +14,12 @@ datasource db {
 }
 
 enum PhoneModel {
-  iphonex
-  iphone11
-  iphone12
-  iphone13
-  iphone14
-  iphone15
+  iPhoneX
+  iPhone11
+  iPhone12
+  iPhone13
+  iPhone14
+  iPhone15
 }
 
 enum CaseMaterial {

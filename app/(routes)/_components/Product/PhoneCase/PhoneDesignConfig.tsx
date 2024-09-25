@@ -21,7 +21,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Check, ChevronsUpDown } from 'lucide-react'
-
+import { saveConfig as _saveConfig, SaveConfigArgs } from './PhoneAction'
+import { useUploadThing } from '@/lib/uploadthing'
+import { useMutation } from '@tanstack/react-query'
 
 
 interface PhoneDesignConfigProps {
@@ -31,10 +33,11 @@ interface PhoneDesignConfigProps {
         width: number,
         height: number
     }
+    productType: string
 
 }
 
-const PhoneDesignConfig = ({ configId, imageDimensions, imageUrl }: PhoneDesignConfigProps) => {
+const PhoneDesignConfig = ({ configId, imageDimensions, imageUrl, productType }: PhoneDesignConfigProps) => {
 
     const { toast } = useToast()
     const router = useRouter()
@@ -64,6 +67,94 @@ const PhoneDesignConfig = ({ configId, imageDimensions, imageUrl }: PhoneDesignC
         material: MATERIALS.options[0],
         finish: FINISHES.options[0]
     })
+
+    const { startUpload } = useUploadThing('imageUploader')
+
+    async function saveConfiguration() {
+
+        const {
+            left: caseLeft,
+            top: caseTop,
+            width,
+            height,
+        } = phoneCaseRef.current!.getBoundingClientRect()
+
+        const { left: containerLeft, top: containerTop } =
+            containerRef.current!.getBoundingClientRect()
+
+        const leftOffset = caseLeft - containerLeft
+        const topOffset = caseTop - containerTop
+
+        const actualX = renderedPosition.x - leftOffset
+        const actualY = renderedPosition.y - topOffset
+
+        const canvas = document.createElement('canvas')
+        canvas.width = width
+        canvas.height = height
+        const ctx = canvas.getContext('2d')
+
+        const userImage = new window.Image()
+        userImage.crossOrigin = 'anonymous'
+        userImage.src = imageUrl
+        await new Promise((resolve) => (userImage.onload = resolve))
+
+        ctx?.drawImage(
+            userImage,
+            actualX,
+            actualY,
+            renderedDimension.width,
+            renderedDimension.height
+        )
+
+        const base64 = canvas.toDataURL()
+        const base64Data = base64.split(',')[1]
+
+        const blob = base64ToBlob(base64Data, 'image/png')
+        const file = new File([blob], 'filename.png', { type: 'image/png' })
+        await startUpload([file], { configId })
+
+    }
+
+
+    function base64ToBlob(base64: string, mimeType: string) {
+        const byteCharacters = atob(base64)
+        const byteNumbers = new Array(byteCharacters.length)
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i)
+        }
+        const byteArray = new Uint8Array(byteNumbers)
+        return new Blob([byteArray], { type: mimeType })
+    }
+
+    const { mutate: saveConfig, isPending } = useMutation({
+
+        mutationKey: ['save-config'],
+        mutationFn: async (args: SaveConfigArgs) => {
+            try {
+                await Promise.all([saveConfiguration(), _saveConfig(args)])
+
+            } catch (error) {
+                console.error('Mutation error', error)
+                throw error;
+            }
+        },
+        onError:(error) =>{
+            console.error('Mutation error', error)
+            toast({
+                title: 'Error',
+                description: 'Failed to save configuration',
+                variant: 'destructive',
+            })
+        },
+        onSuccess:()=>{
+            console.log('Mutation success')
+            router.push('/')
+        }
+
+    })
+
+
+
 
     return (
         <div className='container mx-auto'>
@@ -230,7 +321,16 @@ const PhoneDesignConfig = ({ configId, imageDimensions, imageUrl }: PhoneDesignC
                                         + options.material.price) / 100
                                     )}
                                 </p>
-                                <Button size='sm' className='w-full'>
+                                <Button onClick={()=>
+                                    saveConfig({
+                                        configId,
+                                        casecolor: options.color.value,
+                                        casefinish:options.finish.value,
+                                        casematerial:options.material.value,
+                                        casemodel:options.model.value,
+                                        type:productType
+                                    })
+                                } size='sm' className='w-full' disabled={isPending}>
                                     Continue
                                     <ArrowRight className='h-4 w-4 ml-1 inline' />
                                 </Button>

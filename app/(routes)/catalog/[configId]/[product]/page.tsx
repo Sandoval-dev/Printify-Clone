@@ -11,7 +11,7 @@ interface ProductPageProps {
     }
 }
 
-const ProductPage = async({ params }: ProductPageProps) => {
+const ProductPage = async ({ params }: ProductPageProps) => {
 
     const configId = params.configId
 
@@ -26,11 +26,29 @@ const ProductPage = async({ params }: ProductPageProps) => {
     })
     if (!configurations) return notFound()
 
-    const {imageUrl, width, height}=configurations
-    return (
-        <PhoneDesignConfig key={configurations.id} configId={configurations.id}
-         imageUrl={imageUrl} imageDimensions={{width, height}} />
-    )
+    const { imageUrl, width, height } = configurations
+
+
+    if (params.product === "Phone") {
+        return (
+            <PhoneDesignConfig productType='phoneCase' key={configurations.id} configId={configurations.id}
+                imageUrl={imageUrl} imageDimensions={{ width, height }} />
+        )
+    }
+    else if (params.product === "mug") {
+        return (
+            <div>Mug</div>
+        )
+    }
+    else if (params.product === "thsirt") {
+        return (
+            <div>Thirt</div>
+        )
+    }
+    else {
+        return notFound()
+    }
+
 }
 
 export default ProductPage
