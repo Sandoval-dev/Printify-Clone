@@ -11,10 +11,12 @@ export type SaveConfigArgs = {
     casemodel: PhoneModel
     configId: string
     type: ProductType
+    basePrice:number,
+    totalPrice:number
 }
 
 export async function saveConfig({ casecolor, casefinish,
-    casematerial, casemodel, configId, type }: SaveConfigArgs) {
+    casematerial, casemodel, configId, type,basePrice,totalPrice }: SaveConfigArgs) {
 
     await prismadb.configuration.update({
         where: {
@@ -26,6 +28,9 @@ export async function saveConfig({ casecolor, casefinish,
             casematerial,
             casemodel,
             type,
+            basePrice,
+            totalPrice
+
         },
     })
 }

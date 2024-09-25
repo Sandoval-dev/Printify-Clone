@@ -138,7 +138,7 @@ const PhoneDesignConfig = ({ configId, imageDimensions, imageUrl, productType }:
                 throw error;
             }
         },
-        onError:(error) =>{
+        onError: (error) => {
             console.error('Mutation error', error)
             toast({
                 title: 'Error',
@@ -146,9 +146,9 @@ const PhoneDesignConfig = ({ configId, imageDimensions, imageUrl, productType }:
                 variant: 'destructive',
             })
         },
-        onSuccess:()=>{
+        onSuccess: () => {
             console.log('Mutation success')
-            router.push('/')
+            router.push(`/catalog/${configId}/phone/preview`)
         }
 
     })
@@ -318,17 +318,20 @@ const PhoneDesignConfig = ({ configId, imageDimensions, imageUrl, productType }:
                             <div className='w-full flex gap-6 items-center'>
                                 <p className='font-semibold'>
                                     {formatPrice((PHONE_BASE_PRICE + options.finish.price
-                                        + options.material.price) / 100
+                                        + options.material.price)
                                     )}
                                 </p>
-                                <Button onClick={()=>
+                                <Button onClick={() =>
                                     saveConfig({
                                         configId,
                                         casecolor: options.color.value,
-                                        casefinish:options.finish.value,
-                                        casematerial:options.material.value,
-                                        casemodel:options.model.value,
-                                        type:productType
+                                        casefinish: options.finish.value,
+                                        casematerial: options.material.value,
+                                        casemodel: options.model.value,
+                                        type: productType,
+                                        basePrice: PHONE_BASE_PRICE,
+                                        totalPrice: PHONE_BASE_PRICE + options.finish.price
+                                            + options.material.price
                                     })
                                 } size='sm' className='w-full' disabled={isPending}>
                                     Continue
