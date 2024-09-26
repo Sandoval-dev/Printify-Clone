@@ -1,3 +1,4 @@
+import MugPreview from '@/app/(routes)/_components/Product/Mug/MugPreview';
 import PhonePreview from '@/app/(routes)/_components/Product/PhoneCase/PhonePreview';
 import TshirtPreview from '@/app/(routes)/_components/Product/Tshirt/TshirtPreview';
 import { prismadb } from '@/lib/prismadb';
@@ -37,7 +38,8 @@ const PreviewPage = async({ params }: PreviewPageProps) => {
     }
     else if (params.product === "mug") {
         return (
-            <div>Mug</div>
+            <MugPreview configuration={configurations}/>
+
         )
     }
     else if (params.product === "tshirt") {

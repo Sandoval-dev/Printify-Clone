@@ -1,3 +1,4 @@
+import MugDesignConfig from '@/app/(routes)/_components/Product/Mug/MugDesignConfig';
 import PhoneDesignConfig from '@/app/(routes)/_components/Product/PhoneCase/PhoneDesignConfig';
 import TshirtDesignConfig from '@/app/(routes)/_components/Product/Tshirt/TshirtDesignConfig';
 import { prismadb } from '@/lib/prismadb';
@@ -38,7 +39,8 @@ const ProductPage = async ({ params }: ProductPageProps) => {
     }
     else if (params.product === "mug") {
         return (
-            <div>Mug</div>
+            <MugDesignConfig productType='mug' key={configurations.id} configId={configurations.id}
+            imageUrl={imageUrl} imageDimensions={{ width, height }} />
         )
     }
     else if (params.product === "thsirt") {
