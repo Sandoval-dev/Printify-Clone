@@ -1,4 +1,5 @@
 import PhoneDesignConfig from '@/app/(routes)/_components/Product/PhoneCase/PhoneDesignConfig';
+import TshirtDesignConfig from '@/app/(routes)/_components/Product/Tshirt/TshirtDesignConfig';
 import { prismadb } from '@/lib/prismadb';
 import { isValidObjectId } from '@/lib/utils';
 import { notFound } from 'next/navigation';
@@ -42,7 +43,8 @@ const ProductPage = async ({ params }: ProductPageProps) => {
     }
     else if (params.product === "thsirt") {
         return (
-            <div>Thirt</div>
+            <TshirtDesignConfig productType='tshirt' key={configurations.id} configId={configurations.id}
+            imageUrl={imageUrl} imageDimensions={{ width, height }} />
         )
     }
     else {
