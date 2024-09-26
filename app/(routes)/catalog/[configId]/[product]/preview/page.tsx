@@ -1,4 +1,5 @@
 import PhonePreview from '@/app/(routes)/_components/Product/PhoneCase/PhonePreview';
+import TshirtPreview from '@/app/(routes)/_components/Product/Tshirt/TshirtPreview';
 import { prismadb } from '@/lib/prismadb';
 import { isValidObjectId } from '@/lib/utils';
 import { notFound } from 'next/navigation';
@@ -39,9 +40,9 @@ const PreviewPage = async({ params }: PreviewPageProps) => {
             <div>Mug</div>
         )
     }
-    else if (params.product === "thsirt") {
+    else if (params.product === "tshirt") {
         return (
-            <div>Thirt</div>
+           <TshirtPreview configuration={configurations}/>
         )
     }
     else {

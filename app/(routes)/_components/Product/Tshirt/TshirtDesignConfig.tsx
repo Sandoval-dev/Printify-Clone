@@ -102,9 +102,9 @@ const TshirtDesignConfig = ({ configId, imageDimensions, imageUrl, productType }
         )
 
         //Yeni kırpılmış bölge
-        const cropX=175;
+        const cropX=165;
         const cropY=355
-        const cropWidth=width-cropX-175;
+        const cropWidth=width-cropX-165;
         const cropHeight=height-cropY-355
 
         //Kırpma işlemi için yeni canvas oluştur
