@@ -101,7 +101,7 @@ model Order {
   id              String        @id @default(auto()) @map("_id") @db.ObjectId
   configurationId String        @db.ObjectId
   configuration   Configuration @relation(fields: [configurationId], references: [id], onDelete: Cascade)
-  userId          String        @db.ObjectId
+  userId          String       
   amount          Float
   isPaid          Boolean       @default(false)
   paidType        String

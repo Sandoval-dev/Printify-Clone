@@ -1,6 +1,7 @@
 import PaymentForm from '@/app/(routes)/_components/PaymentForm';
 import { prismadb } from '@/lib/prismadb';
 import { isValidObjectId } from '@/lib/utils';
+import { currentUser } from '@clerk/nextjs/server';
 import { notFound } from 'next/navigation';
 import React from 'react'
 
@@ -30,12 +31,16 @@ const CheckOutPage = async ({ params }: CheckOutPageProps) => {
         return notFound();
     }
 
+    const {totalPrice}=configurations
+
+    const user=await currentUser()
+
     return (
         <div className='container mx-auto'>
             <div className='grid grid-cols-3 gap-8'>
-                <div className='md:col-span-2'>
+                <div className='md:col-span-2 col-span-3'>
                     <div className='border bg-slate-200 p-4 mt-8 rounded-2xl'>
-                         <PaymentForm configId={params.configId} product={params.product}/>
+                         <PaymentForm totalPrice={totalPrice} userId={user?.id} configId={params.configId} product={params.product}/>
                     </div>
 
                 </div>
