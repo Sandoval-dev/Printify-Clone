@@ -198,13 +198,13 @@ const PaymentForm = ({ configId, product, totalPrice, userId }: PaymentFormProps
                         }
                     }
 
-                    const responseOrder=await axios.post('/api/saveorder', orderData,{
+                    const responseOrder = await axios.post('/api/saveorder', orderData, {
                         headers: {
                             'Content-Type': 'application/json',
                         }
                     })
                     toast({
-                        variant:'success',
+                        variant: 'success',
                         title: 'Order Placed',
                         description: "Your order has been placed successfully."
                     })
@@ -230,7 +230,25 @@ const PaymentForm = ({ configId, product, totalPrice, userId }: PaymentFormProps
 
         }
         if (data.paymentMethod === "stripe") {
+            const orderData = {
+                configurationId: configId,
+                userId: userId,
+                amount: totalPrice,
+                paidType: 'stripe',
+                status: 'waiting',
+                address: {
+                    name: data.name,
+                    street: data.street,
+                    city: data.city,
+                    postalCode: data.postalCode,
+                    country: data.country,
+                    state: data.state,
+                    phoneNumber: data.phoneNumber
+                }
+            }
 
+            const response =await axios.post('/api/checkout', {orderData})
+            window.location.assign(response.data.url)
         }
 
         // call your API with the values

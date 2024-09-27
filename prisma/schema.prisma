@@ -101,7 +101,7 @@ model Order {
   id              String        @id @default(auto()) @map("_id") @db.ObjectId
   configurationId String        @db.ObjectId
   configuration   Configuration @relation(fields: [configurationId], references: [id], onDelete: Cascade)
-  userId          String       
+  userId          String
   amount          Float
   isPaid          Boolean       @default(false)
   paidType        String
@@ -125,4 +125,13 @@ model Address {
   state       String?
   phoneNumber String?
   orders      Order[]
+}
+
+model StripeCustomer {
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
+  userId           String @unique
+  stripeCustomerId String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
