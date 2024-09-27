@@ -13,8 +13,8 @@ const UserMenu = async () => {
                 user && (
                     <>
                         <div className='flex flex-row items-center justify-center gap-3'>
-                            <Link href="/dashboard">
-                                <Button variant='success'>Dashboard</Button>
+                            <Link href="/myorder">
+                                <Button variant="outline">Order</Button>
                             </Link>
                             <UserButton />
                         </div>
@@ -28,7 +28,7 @@ const UserMenu = async () => {
                         <Button variant='outline'>Login</Button>
                     </Link>
                     <Link href="/sign-up">
-                        <Button variant='success'>Sign up</Button>
+                        <Button variant='outline'>Sign up</Button>
                     </Link>
                 </div>
             )

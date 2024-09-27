@@ -210,6 +210,7 @@ const PaymentForm = ({ configId, product, totalPrice, userId }: PaymentFormProps
                     })
 
                     console.log(responseOrder.data.id)
+                    router.push(`/catalog/finish`)
                 } else {
                     toast({
                         variant: 'destructive',

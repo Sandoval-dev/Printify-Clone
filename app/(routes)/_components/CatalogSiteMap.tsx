@@ -61,7 +61,7 @@ const CatalogSiteMap = () => {
     }, [pathname, steps])
 
     const handleStepClick = (stepKey: number) => {
-        if (stepKey <= currentStep) {
+        if (stepKey <= currentStep && currentStep < 6) {
             setCurrentStep(stepKey)
         }
     }
@@ -74,7 +74,7 @@ const CatalogSiteMap = () => {
                     steps.map((step) => (
                         <StepItem href={step.href} onClick={() => handleStepClick(step.key)}
                             label={step.label} isActive={step.key === currentStep}
-                            key={step.key} isClickable={step.key <= currentStep}
+                            key={step.key} isClickable={step.key <= currentStep && currentStep<6}
                             number={step.key} />
                     ))
                 }
@@ -106,7 +106,7 @@ const StepItem = ({ href, isActive, isClickable, label, number, onClick }: {
                 {number}
             </Link>
             <div className={cn("mt-2 text-sm font-medium transition-colors duration-500", isActive ? "text-mycolor-100" : isClickable ? "text-gray-700" : "text-gray-400")}>
-                 {label}
+                {label}
             </div>
         </div>
     )
