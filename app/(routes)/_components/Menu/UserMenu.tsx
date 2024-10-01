@@ -7,15 +7,21 @@ import React from 'react'
 const UserMenu = async () => {
     const user = await currentUser()
 
+    const ADMIN_USER = process.env.ADMIN_USER
     return (
         <div>
             {
                 user && (
                     <>
                         <div className='flex flex-row items-center justify-center gap-3'>
-                            <Link href="/myorder">
-                                <Button variant="outline">Order</Button>
-                            </Link>
+                            {
+                                user.id === ADMIN_USER && (
+                                    <Link href="/p/dashboard">
+                                        <Button variant="destructive">Admin Panel</Button>
+                                    </Link>
+                                )
+                            }
+
                             <UserButton />
                         </div>
 
